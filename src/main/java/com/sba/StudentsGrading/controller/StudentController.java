@@ -61,6 +61,7 @@ public class StudentController {
 		student.setStdName(studentDetails.getStdName());
 		student.setStdLastname(studentDetails.getStdLastname());
 		student.setBranch(studentDetails.getBranch());
+		student.setIdCard(studentDetails.getIdCard());
 		final Student updatedStudent = studentRepository.save(student);
 		return ResponseEntity.ok(updatedStudent);
 	}

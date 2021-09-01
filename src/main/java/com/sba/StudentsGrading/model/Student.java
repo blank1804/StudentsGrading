@@ -32,17 +32,20 @@ public class Student {
 	@Column(name = "branch")
 	private String branch;
 	
+	@Column(name = "id_card")
+	private String idCard;
 	public Student() {
 		
 	}
 	
-	public Student(String stdId, String stdPrename, String stdName, String stdLastname, String branch) {
+	public Student(String stdId, String stdPrename, String stdName, String stdLastname, String branch, String idCard) {
 		super();
 		this.stdId = stdId;
 		this.stdPrename = stdPrename;
 		this.stdName = stdName;
 		this.stdLastname = stdLastname;
 		this.branch = branch;
+		this.idCard = idCard;
 	}
 	public long getId() {
 		return id;
@@ -89,6 +92,13 @@ public class Student {
 	}
 	public void setBranch(String branch) {
 		this.branch = branch;
+	}
+	
+	public String getIdCard() {
+		return idCard;
+	}
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
 	}
 }
 
