@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +23,11 @@ import com.sba.StudentsGrading.repository.StudentRepository;
 
 import org.springframework.validation.annotation.Validated;
 
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/blank")
 public class StudentController {
+	
 	@Autowired
 	private StudentRepository studentRepository;
 
@@ -35,37 +37,39 @@ public class StudentController {
 	}
 
 	@GetMapping("/students/{id}")
-	public ResponseEntity<Student> getStudentById(@PathVariable(value = "id") Long studentId)
+	public ResponseEntity<Student> getStudentById(@PathVariable(value = "id") Long id)
 			throws ResourceNotFoundException {
-		Student student = studentRepository.findById(studentId)
-				.orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + studentId));
+		Student student = studentRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + id));
 		return ResponseEntity.ok().body(student);
 	}
 
-	@PostMapping("/students")
-	public Student createStudent(@Validated @RequestBody Student student) {
+	@PostMapping("/save")
+	public Student createStudent(@RequestBody Student student) {
 		return studentRepository.save(student);
 	}
+	
 
 	@PutMapping("/students/{id}")
-	public ResponseEntity<Student> updateStudent(@PathVariable(value = "id") Long studentId,
+	public ResponseEntity<Student> updateStudent(@PathVariable(value = "id") Long id,
 			@Validated @RequestBody Student studentDetails) throws ResourceNotFoundException {
-		Student student = studentRepository.findById(studentId)
-				.orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + studentId));
+		Student student = studentRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + id));
 
 		student.setStdId(studentDetails.getStdId());
-		student.setStdPrename(studentDetails.getStdPrename());
+		student.setStdPreName(studentDetails.getStdPrename());
 		student.setStdName(studentDetails.getStdName());
 		student.setStdLastname(studentDetails.getStdLastname());
+		student.setBranch(studentDetails.getBranch());
 		final Student updatedStudent = studentRepository.save(student);
 		return ResponseEntity.ok(updatedStudent);
 	}
 
 	@DeleteMapping("/students/{id}")
-	public Map<String, Boolean> deleteStudent(@PathVariable(value = "id") Long studentId)
+	public Map<String, Boolean> deleteStudent(@PathVariable(value = "id") Long id)
 			throws ResourceNotFoundException {
-		Student student = studentRepository.findById(studentId)
-				.orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + studentId));
+		Student student = studentRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + id));
 
 		studentRepository.delete(student);
 		Map<String, Boolean> response = new HashMap<>();

@@ -2,6 +2,8 @@ package com.sba.StudentsGrading.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,40 +13,61 @@ import javax.persistence.Table;
 @Table(name = "students")
 public class Student {
 	
-	private long stdId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	
+	@Column(name = "std_id")
+	private String stdId;
+
+	@Column(name = "std_prename")
 	private String stdPrename;
+	
+	@Column(name = "std_name")
 	private String stdName;
+	
+	@Column(name = "std_lastname")
 	private String stdLastname;
+	
+	@Column(name = "branch")
+	private String branch;
 	
 	public Student() {
 		
 	}
 	
-	public Student(long stdId, String stdPrename, String stdName, String stdLastname) {
+	public Student(String stdId, String stdPrename, String stdName, String stdLastname, String branch) {
+		super();
 		this.stdId = stdId;
 		this.stdPrename = stdPrename;
 		this.stdName = stdName;
 		this.stdLastname = stdLastname;
+		this.branch = branch;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
 	}
 	
-	@Id
-	@Column(name = "std_id", nullable = false)
-	public long getStdId() {
+	
+	public String getStdId() {
 		return stdId;
 	}
-	public void setStdId(long stdId) {
+	public void setStdId(String stdId) {
 		this.stdId = stdId;
 	}
 	
-	@Column(name = "std_prename", nullable = false)
+	
 	public String getStdPrename() {
 		return stdPrename;
 	}
-	public void setStdPrename(String stdPrename) {
+	public void setStdPreName(String stdPrename) {
 		this.stdPrename = stdPrename;
 	}
 	
-	@Column(name = "std_name", nullable = false)
+	
 	public String getStdName() {
 		return stdName;
 	}
@@ -52,18 +75,20 @@ public class Student {
 		this.stdName = stdName;
 	}
 	
-	@Column(name = "std_lastname", nullable = false)
+	
 	public String getStdLastname() {
 		return stdLastname;
 	}
 	public void setStdLastname(String stdLastname) {
 		this.stdLastname = stdLastname;
 	}
-
-	@Override
-	public String toString() {
-		return "Student [stdId=" + stdId + ", stdPrename=" + stdPrename + ", stdName=" + stdName + ", stdLastname=" + stdLastname
-				+ "]";
+	
+	
+	public String getBranch() {
+		return branch;
 	}
-
+	public void setBranch(String branch) {
+		this.branch = branch;
+	}
 }
+
