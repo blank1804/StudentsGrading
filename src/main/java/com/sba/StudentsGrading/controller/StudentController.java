@@ -31,7 +31,7 @@ public class StudentController {
 	@Autowired
 	private StudentRepository studentRepository;
 
-	@GetMapping("/students")
+	@GetMapping("/search")
 	public List<Student> getAllStudents() {
 		return studentRepository.findAll();
 	}
@@ -66,7 +66,7 @@ public class StudentController {
 		return ResponseEntity.ok(updatedStudent);
 	}
 
-	@DeleteMapping("/students/{id}")
+	@DeleteMapping("/delete/{id}")
 	public Map<String, Boolean> deleteStudent(@PathVariable(value = "id") Long id)
 			throws ResourceNotFoundException {
 		Student student = studentRepository.findById(id)
