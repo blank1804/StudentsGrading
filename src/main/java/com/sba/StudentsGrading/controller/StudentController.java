@@ -50,7 +50,7 @@ public class StudentController {
 	}
 	
 
-	@PutMapping("/students/{id}")
+	@PutMapping("/update/{id}")
 	public ResponseEntity<Student> updateStudent(@PathVariable(value = "id") Long id,
 			@Validated @RequestBody Student studentDetails) throws ResourceNotFoundException {
 		Student student = studentRepository.findById(id)
@@ -77,4 +77,5 @@ public class StudentController {
 		response.put("deleted", Boolean.TRUE);
 		return response;
 	}
+	
 }
